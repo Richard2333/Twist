@@ -1,6 +1,6 @@
 module ttms
    integer :: pjv(2)
-   integer,parameter :: nlat=1000
+   integer,parameter :: nlat=100000
 contains
    function trans(v0,mat) result(v1)
       implicit none
@@ -72,6 +72,7 @@ contains
       integer :: length,lattice(length,2),absl(length),mxv
       integer,allocatable :: m(:),flgs(:)
       integer :: i,j,k
+      
       do i=1,length
          absl(i)=abs(lattice(i,1))+abs(lattice(i,2))
       end do
@@ -153,8 +154,8 @@ program main
          do ai=1,atoms
             m(1)=i-nm/2!real(i)
             m(2)=j-nm/2!real(j)
-            m1=m+atompos(ai,:)![0.666,0.666]
-            b1=proj(m1,theta)
+            m1=m+atompos(ai,:)-atompos(1,:)![0.666,0.666]
+            b1=proj(m,theta)
             if(mindist(b1)<0.01  ) then
                k=k+1
                lattice(k,:)=pjv

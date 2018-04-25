@@ -1,0 +1,106 @@
+&TB_FILE
+Hrfile = 's1hr.dat'
+/
+
+
+!> bulk band structure calculation flag
+&CONTROL
+BulkBand_calc         = T
+BulkFS_calc           = F
+FindNodes_calc        = F
+BulkGap_cube_calc     = F
+BulkGap_plane_calc    = F
+BulkBand_plane_calc   = T
+SlabBand_calc         = F
+WireBand_calc         = F
+SlabSS_calc           = F
+SlabArc_calc          = F
+SlabSpintexture_calc  = F
+wanniercenter_calc    = F
+BerryPhase_calc       = F
+Z2_3D_calc            = F
+BerryCurvature_calc   = F
+/
+
+&SYSTEM
+NSLAB = 400
+NumOccupied =  2        ! NumOccupied
+SOC = 0                 ! without soc : SOC=0; with soc : SOC=1
+E_FERMI = 0.0100        ! e-fermi
+surf_onsite= 0.0        ! surf_onsite
+/
+
+&PARAMETERS
+Eta_Arc = 0.001     ! infinite small value, like brodening 
+E_arc = 0.01         ! energy for calculate Fermi Arc
+OmegaNum = 300      ! omega number       
+OmegaMin = -1.0     ! energy interval
+OmegaMax =  1.0     ! energy interval
+Nk1 = 100          ! number k points 
+Nk2 = 100          ! number k points 
+Nk3 = 100          ! number k points 
+NP = 2              ! number of principle layers
+Gap_threshold = 0.0010 ! threshold for GapCube output
+NBtau= 100
+BTauMax = 20.0
+/
+
+LATTICE
+Angstrom
+1 0 0
+0 1 0
+0 0 1
+
+ATOM_POSITIONS
+4                             ! number of atoms for projectors
+Direct                          ! Direct or Cartisen coordinate
+X	-0.00199997425	0.333999991	0
+X	1.32322311E-05	0.332993865	0.5
+X	-0.00100004673	0.666999996	0
+X	0.00302922726	0.664984763	0.5
+
+
+
+PROJECTORS
+1 1 1 1  ! nubmber of projectors
+X s
+X s
+X s
+X s
+
+
+
+
+SURFACE            ! TaAs2 conventional (010) surface
+ 1  0  0
+ 0  1  0
+ 0  0  1
+
+KPATH_BULK            ! k point path
+3              ! number of k line only for bulk band
+  M   0.50000  0.00000  0.00000   K   0.33333   -1.00000  0.0000
+  K   0.33333   -1.00000  0.0000   G   0.33333   0.66666  0.0000 
+  G   0.33333   0.66666  0.0000    S   0.66666   0.33333  0.0000
+
+KPATH_SLAB
+1        ! numker of k line for 2D case
+X  0.0  0.0 G  0.0  0.2  ! k path for 2D case
+G  0.0  0.0 Y  0.0  0.5
+Y  0.0  0.5 M  0.5  0.5
+
+KPLANE_SLAB
+-0.5 -0.5      ! Original point for 2D k plane
+ 1.0  0.0      ! The first vector to define 2D k plane 
+ 0.0  1.0      ! The second vector to define 2D k plane  for arc plots
+
+KPLANE_BULK
+-0.00 -0.00 -0.00   ! Original point for 3D k plane 
+ 2.00  0.00  0.00   ! The first vector to define 3d k space plane
+ 0.00  2.00  0.00   ! The second vector to define 3d k space plane
+
+KCUBE_BULK
+-0.50 -0.50 -0.50   ! Original point for 3D k plane 
+ 1.00  0.00  0.00   ! The first vector to define 3d k space plane
+ 0.00  1.00  0.00   ! The second vector to define 3d k space plane
+ 0.00  0.00  1.00   ! The third vector to define 3d k cube
+
